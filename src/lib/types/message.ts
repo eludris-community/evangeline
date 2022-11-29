@@ -9,8 +9,8 @@ export interface MessageResponse {
 }
 
 export class Message {
-    public author: string;
-    public content: string;
+    public author: string
+    public content: string
 
     /**
      * Creates a new message.

@@ -1,2 +1,2 @@
-export { Bot } from './bot';
-export { Message } from './types/message';
+export { Bot } from './bot'
+export { Message } from './types/message'

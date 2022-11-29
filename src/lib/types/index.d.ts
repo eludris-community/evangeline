@@ -16,17 +16,17 @@ export interface MessageResponse {
 }
 
 export class Message {
-    public author: string;
-    public content: string;
+    public author: string
+    public content: string
 
     constructor(author: string, content: string);
 }
 
 export class Bot {
-    public name: string;
-    private options?: BotOptions;
-    public ws: WebSocket;
-    public rest: string;
+    public name: string
+    private options?: BotOptions
+    public ws: WebSocket
+    public rest: string
     constructor(name: string, options?: BotOptions);
 }
 
