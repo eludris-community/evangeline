@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        // module
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+
+        // type-checking
+        "strict": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+
+        // emit
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "newLine": "lf",
+        "removeComments": false,
+        "importHelpers": true,
+    
+        // output
+        "outDir": "./dist",
+        "rootDir": "./src/lib",
+
+        // environment & language
+        "target": "ESNext",
+        "lib": ["ESNext", "DOM"],
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+    },
+    "include": ["./src/lib/**/*.ts"],
+    "exclude": ["./node_modules", "./dist"]
+}
