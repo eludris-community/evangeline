@@ -9,6 +9,12 @@ interface BotOptions {
     restURL?: string;
 }
 
+export declare interface Bot {
+    on(event: 'message', listener: (message: MessageResponse) => void): this;
+    on(event: 'ready', listener: () => void): this;
+    on(event: 'error', listener: (error: Error) => void): this;
+}
+
 export class Bot extends EventEmitter {
     public name: string
     private options?: BotOptions
