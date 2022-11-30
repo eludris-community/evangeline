@@ -1,4 +1,5 @@
-import { EventEmitter, RawData, WebSocket } from 'ws'
+import { RawData, WebSocket } from 'ws'
+import { EventEmitter } from 'events'
 import { Message, MessageResponse } from './types/message'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
@@ -18,8 +19,9 @@ export declare interface Bot {
 export class Bot extends EventEmitter {
     public name: string
     private options?: BotOptions
-    public ws: WebSocket
+    public ws: WebSocket | null = null
     public rest: string
+    private interval: NodeJS.Timer | null = null;
 
     /**
      * The main bot class.
@@ -30,20 +32,23 @@ export class Bot extends EventEmitter {
         super()
         this.name = name
         this.options = options
-        this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL)
         this.rest = this.options?.restURL || DEFAULT_REST_URL
     }
-
+    
     /**
      * Connects to the Eludris gateway.
      */
     connect() {
+        this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL)
+        console.log(this.ws.readyState);
+        
         this.ws.on('open', () => {
             this.emit('ready')
         })
 
         this.ws.on('message', (data: RawData) => {
-            this.ws.emit('message', data)
+            const message = JSON.parse(data.toString()) as Message
+            this.emit('messageCreate', message)
         })
 
         this.ws.on('close', (code: number, reason: Buffer) => {
@@ -53,14 +58,19 @@ export class Bot extends EventEmitter {
         this.ws.on('error', (error: Error) => {
             this.emit('error', error)
         })
+
+        this.interval = setInterval(() => {
+            this.ws?.ping()
+        }, 20 * 1000)
     }
 
     /**
      * Closes the connection to the Eludris gateway.
      */
     close() {
-        if (this.ws.OPEN) {
+        if (this.ws?.readyState === WebSocket.OPEN) {
             this.ws.close()
+            clearInterval(this.interval!)
         }
     }
 
@@ -74,11 +84,8 @@ export class Bot extends EventEmitter {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                message: message
-            })
+            body: JSON.stringify(message)
         })
-
         return response.json() as Promise<MessageResponse>
     }
 
