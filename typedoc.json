@@ -1,0 +1,13 @@
+{
+    "entryPoints": ["./src/lib/index.ts"],
+    "exclude": ["**/node_modules/**", "**/dist/**"],
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "name": "evangeline-docs",
+    "out": "./docs",
+    "theme": "default",
+    "includeVersion": true,
+    "readme": "./docs/README.md",
+    "gitRemote": "origin",
+    "gitRevision": "main",
+}
