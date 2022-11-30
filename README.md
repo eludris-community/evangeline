@@ -17,8 +17,8 @@ yarn add evangeline
 ## Basic Usage
 
 ```ts
-import { Bot } from 'evangeline'; // typescript
-// const { Bot } = require('evangeline'); // javascript
+import { Bot } from 'evangeline'; // ES modules
+// const { Bot } = require('evangeline'); // CommonJS modules
 
 const bot = new Bot('new bot name');
 
