@@ -1,4 +1,4 @@
-import { EventEmitter, WebSocket } from 'ws'
+import { EventEmitter, RawData, WebSocket } from 'ws'
 import { Message, MessageResponse } from './types/message'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
@@ -36,15 +36,15 @@ export class Bot extends EventEmitter {
             this.emit('ready')
         })
 
-        this.ws.on('message', (data) => {
-            this.emit('message', data)
+        this.ws.on('message', (data: RawData) => {
+            this.ws.emit('message', data)
         })
 
-        this.ws.on('close', (code, reason) => {
+        this.ws.on('close', (code: number, reason: Buffer) => {
             this.emit('close', code, reason)
         })
 
-        this.ws.on('error', (error) => {
+        this.ws.on('error', (error: Error) => {
             this.emit('error', error)
         })
     }
