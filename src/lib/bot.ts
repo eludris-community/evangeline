@@ -43,7 +43,7 @@ export class Bot extends EventEmitter {
         })
 
         this.ws.on('message', (data: RawData) => {
-            this.ws.emit('message', data)
+            this.emit('message', data)
         })
 
         this.ws.on('close', (code: number, reason: Buffer) => {
