@@ -82,8 +82,7 @@ export class Bot extends EventEmitter {
      */
     connect() {
         this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL)
-        console.log(this.ws.readyState)
-        
+
         this.ws.on('open', () => {
             this.emit('ready')
         })
