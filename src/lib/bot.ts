@@ -1,6 +1,7 @@
 import { RawData, WebSocket } from 'ws'
 import { EventEmitter } from 'events'
 import { Message, MessageResponse } from './types/message'
+import fetch from 'node-fetch'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
 const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/'

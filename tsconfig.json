@@ -29,7 +29,7 @@
 
         // environment & language
         "target": "ESNext",
-        "lib": ["ESNext", "DOM"],
+        "lib": ["ESNext"],
         "forceConsistentCasingInFileNames": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
