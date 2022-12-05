@@ -1,6 +1,6 @@
 import { RawData, WebSocket } from 'ws'
 import { EventEmitter } from 'events'
-import { Message, MessageResponse } from './types/message'
+import { Message, MessageResponse } from './types/message.js'
 import fetch from 'node-fetch'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
@@ -47,8 +47,10 @@ export class Bot extends EventEmitter {
         })
 
         this.ws.on('message', (data: RawData) => {
-            const message = JSON.parse(data.toString()) as Message
-            this.emit('messageCreate', message)
+            const event = JSON.parse(data.toString())
+            if (event.op == "MESSAGE_CREATE") {
+              this.emit('messageCreate', event.d as Message)
+            }
         })
 
         this.ws.on('close', (code: number, reason: Buffer) => {
@@ -60,8 +62,8 @@ export class Bot extends EventEmitter {
         })
 
         this.interval = setInterval(() => {
-            this.ws?.ping()
-        }, 20 * 1000)
+            this.ws?.send(JSON.stringify({op: "PING"}))
+        }, 45 * 1000)
     }
 
     /**
