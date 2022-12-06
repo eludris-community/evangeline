@@ -9,7 +9,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+	"postinstall": "tsc --outDir ./dist"
   },
   "repository": "https://github.com/toolifelesstocode/evangeline",
   "author": "Sham <thesham@protonmail.com>",
