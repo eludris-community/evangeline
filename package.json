@@ -1,7 +1,7 @@
 {
   "name": "evangeline",
   "type": "module",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1",
   "description": "An API wrapper for Eludris.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-	"prepare": "tsc --outDir ./dist"
+    "prepare": "tsc --outDir ./dist"
   },
   "repository": "https://github.com/toolifelesstocode/evangeline",
   "author": "Sham <thesham@protonmail.com>",
