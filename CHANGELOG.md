@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/toolifelesstocode/evangeline/compare/v1.0.1...v1.0.2) (2022-12-08)
+
+
+### Bug Fixes
+
+* **package:** change publish files to `dist` ([d812e42](https://github.com/toolifelesstocode/evangeline/commit/d812e42da355c48abb29f5ceb347e6b0dbce7ab6))
+
 ## [1.0.1](https://github.com/toolifelesstocode/evangeline/compare/1.0.0...v1.0.1) (2022-12-08)
 
 
