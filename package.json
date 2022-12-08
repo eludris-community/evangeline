@@ -3,11 +3,15 @@
   "type": "module",
   "version": "1.0.0-alpha",
   "description": "An API wrapper for Eludris.",
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "src/lib"
+    "lib"
   ],
+  "scripts": {
+    "build": "tsc",
+	"prepare": "tsc --outDir ./dist"
+  },
   "repository": "https://github.com/toolifelesstocode/evangeline",
   "author": "Sham <thesham@protonmail.com>",
   "license": "MIT",

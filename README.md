@@ -1,6 +1,7 @@
 # evangeline
 
-An API wrapper for [Eludris](https://elusite.pages.dev) written in TypeScript (works with JavaScript as well).
+An API wrapper for [Eludris](https://elusite.pages.dev) written in TypeScript
+(works with JavaScript as well).
 
 ## Installation
 
@@ -8,7 +9,7 @@ An API wrapper for [Eludris](https://elusite.pages.dev) written in TypeScript (w
 npm install evangeline
 ```
 
-or 
+or
 
 ```bash
 yarn add evangeline
@@ -22,15 +23,27 @@ import { Bot } from 'evangeline'; // ES modules
 
 const bot = new Bot('new bot name');
 
+bot.on("messageCreate", async (msg) => {
+  switch(msg.content) {
+    case "!ping":
+      await bot.send("pong!");
+    case "!speed":
+      await bot.send("Am I fast?");
+  }
+});
+
 bot.connect();
 ```
 
 ## Notice
 
-It is worth noting that Evangeline is currently in development, and likely does not work properly as of yet. If you would like to contribute, please feel free to do so, by making a Pull Request, or giving me some tips in the Eludris guild 💜.
+It is worth noting that Evangeline is currently in development, and likely does
+not work properly as of yet. If you would like to contribute, please feel free to
+do so, by making a Pull Request, or giving me some tips in the Eludris guild 💜.
 
 ## License
 
 MIT License
 
 Copyright (c) 2022-present Sham
+

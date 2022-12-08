@@ -14,6 +14,7 @@
         "noUnusedLocals": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "skipLibCheck": true,
 
         // emit
         "declaration": true,
@@ -25,15 +26,15 @@
     
         // output
         "outDir": "./dist",
-        "rootDir": "./src/lib",
+        "rootDir": "./lib",
 
         // environment & language
         "target": "ESNext",
         "lib": ["ESNext"],
         "forceConsistentCasingInFileNames": true,
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
+        "emitDecoratorMetadata": true
     },
-    "include": ["./src/lib/**/*.ts"],
+    "include": ["./lib/**/*.ts"],
     "exclude": ["./node_modules", "./dist"]
 }
