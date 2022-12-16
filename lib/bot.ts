@@ -9,7 +9,7 @@ const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/'
 /**
  * The options for the bot.
  */
-interface BotOptions {
+export interface BotOptions {
     /**
      * The gateway URL to connect to.
      */

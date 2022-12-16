@@ -1,2 +1,2 @@
-export { Bot } from './bot.js';
-export { Message } from './types/message.js';
+export { Bot, BotOptions } from './bot.js';
+export { Message, MessageResponse, MessagePayload } from './types/message.js';
