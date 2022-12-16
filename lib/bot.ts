@@ -12,7 +12,6 @@ const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/'
 interface BotOptions {
     /**
      * The gateway URL to connect to.
-     * @public
      */
     gatewayURL?: string;
     /**
@@ -26,7 +25,7 @@ export declare interface Bot {
      * A function to listen to certain events.
      * @param event The event to listen to.
      * @param listener The parameters (if needed) to be used in the event.
-     * @public
+	 * @returns {@link Bot}
      * @example
      * import { Bot } from 'evangeline';
      * 
@@ -54,7 +53,6 @@ export class Bot extends EventEmitter {
      * The main bot class.
      * @param name The desired name of the bot.
      * @param options The options for the bot.
-     * @public
      * @example
      * import { Bot } from 'evangeline';
      * 
@@ -73,7 +71,6 @@ export class Bot extends EventEmitter {
     
     /**
      * Connects to the Eludris gateway.
-     * @public
      * @example
      * import { Bot } from 'evangeline';
      * 
@@ -110,7 +107,6 @@ export class Bot extends EventEmitter {
 
     /**
      * Closes the connection to the Eludris gateway.
-     * @public
      */
     close() {
         if (this.ws?.readyState === WebSocket.OPEN) {
@@ -138,16 +134,14 @@ export class Bot extends EventEmitter {
     /**
      * Send a message to Eludris.
      * @param content The content of the message.
-     * @public
      * @example
      * import { Bot } from 'evangeline';
      * 
      * const bot = new Bot('evangeline test')
      * 
      * bot.on('ready', async () => {
-     *     await bot.sendMessage('woah, I'm alive!')
+     *     await bot.sendMessage('woah, I\'m alive!')
      * })
-     * @returns {@link Promise<MessageResponse>}
      */
     async sendMessage(content: string): Promise<MessageResponse> {
         return await this.createMessage(new Message(this.name, content))
