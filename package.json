@@ -14,14 +14,21 @@
   },
   "repository": "https://github.com/toolifelesstocode/evangeline",
   "author": "Sham <thesham@protonmail.com>",
+
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "docs": "typedoc --options ./typedoc.json"
+  },
+
   "devDependencies": {
+    "@mxssfd/typedoc-theme": "^1.0.3",
     "@types/node": "^18.11.9",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
+    "typedoc": "^0.23.21",
     "typescript": "^4.9.3"
   },
   "dependencies": {
