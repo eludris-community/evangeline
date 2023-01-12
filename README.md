@@ -24,11 +24,11 @@ import { Bot } from 'evangeline'; // ES modules
 const bot = new Bot('new bot name');
 
 bot.on("messageCreate", async (msg) => {
-  switch(msg.content) {
-    case "!ping":
-      await bot.send("pong!");
-    case "!speed":
-      await bot.send("Am I fast?");
+    switch(msg.content) {
+        case "!ping":
+            await bot.send("pong!");
+        case "!speed":
+            await bot.send("Am I fast?");
   }
 });
 
