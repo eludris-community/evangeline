@@ -5,13 +5,13 @@ An API wrapper for [Eludris](https://elusite.pages.dev) written in TypeScript
 
 ## Installation
 
-```bash
+```
 npm install evangeline
 ```
 
 or
 
-```bash
+```
 yarn add evangeline
 ```
 
