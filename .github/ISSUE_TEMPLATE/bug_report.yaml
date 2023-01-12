@@ -7,6 +7,7 @@ body:
     attributes:
       label: Summary
       description: Add a brief description of the issue you have faced.
+    validations:
       required: true
   - type: checkboxes:
     id: checks
@@ -15,30 +16,35 @@ body:
       description: Please make sure you have checked all the following.
       options:
         - label: I have checked issues for duplicates.
-          required: true
+    validations:
+      required: true
   - type: textarea
     id: description
     attributes:
       label: Description
       description: Add a detailed description of the issue you have faced.
+    validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
       label: Reproduction
       description: Show all the steps made to reproduce the issue.
+    validations:
       required: true
   - type: textarea
     id: expected
     attributes:
       label: Expected Behavior
       description: Add a description of what you expected to happen.
+    validations:
       required: true
   - type: textarea
     id: actual
     attributes:
       label: Actual Behavior
       description: Add a description of what actually happened.
+    validations:
       required: true
   - type: textarea
     id: logs
