@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.0.0](https://github.com/eludris-community/evangeline/compare/v1.0.2...v2.0.0) (2023-01-12)
+## [1.1.0](https://github.com/eludris-community/evangeline/compare/v1.0.2...v1.1.0) (2023-01-12)
 
 
 ### ⚠ BREAKING CHANGES
