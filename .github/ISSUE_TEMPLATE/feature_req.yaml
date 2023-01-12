@@ -1,0 +1,30 @@
+name: Feature Requesting
+description: Create a feature request and we shall try to implement it if possible.
+labels: ["t: feature"]
+body:
+  - type: textarea
+    id: what_do
+    attributes:
+      label: What should this feature do/accomplish
+      description: Add a detailed description of what this feature should do/accomplish.
+    validations:
+      required: true
+  - type: textarea
+    id: why_do
+    attributes:
+      label: Why should this feature be added
+      description: Add a detailed description of why this feature should be added.
+    validations:
+      required: true
+  - type: textarea
+    id: current_solution
+    attributes:
+      label: Current Solution
+      description: Add a description of what the current solution is to this feature.
+    validations:
+      required: true
+  - type: textarea
+    id: more_context
+    attributes:
+      label: Additional Context
+      description: Add any additional context or screenshots about the feature request here, if any.
