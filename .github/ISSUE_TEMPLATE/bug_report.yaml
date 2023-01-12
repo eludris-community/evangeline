@@ -7,6 +7,14 @@ body:
     attributes:
       label: Summary
       description: Add a brief description of the issue you have faced.
+  - type: checkboxes:
+    id: checks
+    attributes:
+      label: Checks
+      description: Please make sure you have checked all the following.
+      options:
+        - label: I have checked issues for duplicates.
+          required: true
   - type: textarea
     id: description
     attributes:
