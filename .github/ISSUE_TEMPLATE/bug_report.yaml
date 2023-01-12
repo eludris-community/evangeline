@@ -9,7 +9,7 @@ body:
       description: Add a brief description of the issue you have faced.
     validations:
       required: true
-  - type: checkboxes:
+  - type: checkboxes
     id: checks
     attributes:
       label: Checks
