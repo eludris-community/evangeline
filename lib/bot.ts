@@ -2,6 +2,7 @@ import { RawData, WebSocket } from 'ws'
 import { EventEmitter } from 'events'
 import { Message, MessageResponse } from './types/message.js'
 import fetch from 'node-fetch'
+import { EvangelineValueError } from './errors.js'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
 const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/'
@@ -51,7 +52,7 @@ export class Bot extends EventEmitter {
 
     /**
      * The main bot class.
-     * @param name The desired name of the bot.
+     * @param name The desired name of the bot. It **must** be 2-32 characters long.
      * @param options The options for the bot.
      * @example
      * import { Bot } from 'evangeline';
@@ -71,6 +72,7 @@ export class Bot extends EventEmitter {
     
     /**
      * Connects to the Eludris gateway.
+     * @throws {EvangelineValueError} If `name` is not 2-32 characters long.
      * @example
      * import { Bot } from 'evangeline';
      * 
@@ -79,6 +81,10 @@ export class Bot extends EventEmitter {
      * bot.connect()
      */
     connect() {
+        if (this.name.length < 2 || this.name.length > 32) {
+            throw new EvangelineValueError('name passed is not 2-32 characters long')
+        }
+
         this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL)
 
         this.ws.on('open', () => {
