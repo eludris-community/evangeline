@@ -1,0 +1,62 @@
+name: Bug Report
+description: Create a bug report you find to help us improve and fix it.
+labels: ["t: unconfirmed bug"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Add a brief description of the issue you have faced.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      description: Please make sure you have checked all the following.
+      options:
+        - label: I have checked issues for duplicates.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Add a detailed description of the issue you have faced.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Show all the steps made to reproduce the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: Add a description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: Add a description of what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Add any relevant logs here.
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Add any relevant information about your environment here.
+      placeholder: |
+        - OS: Windows 11 22H2 22000.348
+        - Node Version: v19.5.0
+        - Evangeline Version: v1.5.0
+        - Evangeline Commit: 4d1e2f0 (if GitHub version used)
