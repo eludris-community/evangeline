@@ -1,4 +1,4 @@
-export declare function Evangeline(name: string, options?: BotOptions): Bot
+export declare function Evangeline(author: string, options?: BotOptions): Bot
 
 export interface BotOptions {
     gatewayURL?: string;
@@ -23,11 +23,11 @@ export class Message {
 }
 
 export class Bot {
-    public name: string
+    public author: string
     private options?: BotOptions
     public ws: WebSocket
     public rest: string
-    constructor(name: string, options?: BotOptions);
+    constructor(author: string, options?: BotOptions);
 }
 
 export type MessageType = MessagePayload | MessageResponse;
