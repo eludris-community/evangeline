@@ -16,8 +16,7 @@ body:
       description: Please make sure you have checked all the following.
       options:
         - label: I have checked issues for duplicates.
-    validations:
-      required: true
+          required: true
   - type: textarea
     id: description
     attributes:
