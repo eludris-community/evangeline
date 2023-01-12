@@ -13,7 +13,14 @@
     "prepare": "tsc --outDir ./dist",
     "docs": "typedoc --options ./typedoc.json"
   },
-  "repository": "https://github.com/toolifelesstocode/evangeline",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eludris-community/evangeline.git"
+  },
+  "homepage": "https://evangeline.pages.dev",
+  "bugs": {
+    "url": "https://github.com/eludris-community/evangeline/issues"
+  },
   "author": "Sham <thesham@protonmail.com>",
 
   "license": "MIT",
