@@ -8,7 +8,7 @@ Before contributing, there is a few things you should know if you don't already.
 
 ### Dependencies
 
-In order to install these dependencies locally, you will need to simply run
+In order to install these dependencies locally, you will need to have [Yarn](https://yarnpkg.com/getting-started/install) installed. Once that is done, simply run:
 
 ```bash
 yarn install
@@ -59,6 +59,7 @@ The `type` field of your message should be **ONE** of the following:
 - style: Changes that do not affect the meaning of the code (added whitespace, formatting, etc)
 - test: Adds or modifies tests
 - deps: Changes to external dependencies (does not include devDependencies, use `dev-deps`)
+- dev-deps: Changes to external developer dependencies (Dependencies that are not required during runtime).
 
 **Scope**:
 
@@ -170,7 +171,7 @@ function foo(bar: string) {
 }
 ```
 
-This _does_ make use of [JSDoc](https://jsdoc.app/). However, it is not the same as JSDoc. You can read more about the differences [here](https://typedoc.org/guides/doccomments/).
+This _does_ make use of [JSDoc](https://jsdoc.app/). However, it is not the same as Typedoc. You can read more about the differences [here](https://typedoc.org/guides/doccomments/).
 
 ### Generating the documentation
 
