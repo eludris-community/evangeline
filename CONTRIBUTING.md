@@ -181,4 +181,4 @@ To generate the documentation, simply run
 yarn docs
 ```
 
-This will generate the documentation in the `docs` folder.
+This will generate the documentation in the `docs` folder which you can open using its file path.
