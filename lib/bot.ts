@@ -2,6 +2,7 @@ import { RawData, WebSocket } from 'ws'
 import { EventEmitter } from 'events'
 import { Message, MessageResponse } from './types/message.js'
 import fetch from 'node-fetch'
+import { EvangelineValueError } from './errors.js'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
 const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/'
@@ -43,7 +44,7 @@ export declare interface Bot {
 }
 
 export class Bot extends EventEmitter {
-    public name: string
+    public author: string
     private options?: BotOptions
     public ws: WebSocket | null = null
     public rest: string
@@ -51,7 +52,7 @@ export class Bot extends EventEmitter {
 
     /**
      * The main bot class.
-     * @param name The desired name of the bot.
+     * @param author The author name of the to-be-sent messages. It **must** be 2-32 characters long.
      * @param options The options for the bot.
      * @example
      * import { Bot } from 'evangeline';
@@ -62,15 +63,16 @@ export class Bot extends EventEmitter {
      *          restURL: 'https://some.rest-url.xyz/' // optional
      * })
      */
-    constructor(name: string, options?: BotOptions) {
+    constructor(author: string, options?: BotOptions) {
         super()
-        this.name = name
+        this.author = author
         this.options = options
         this.rest = this.options?.restURL || DEFAULT_REST_URL
     }
     
     /**
      * Connects to the Eludris gateway.
+     * @throws {EvangelineValueError} If `author` is not 2-32 characters long.
      * @example
      * import { Bot } from 'evangeline';
      * 
@@ -79,6 +81,10 @@ export class Bot extends EventEmitter {
      * bot.connect()
      */
     connect() {
+        if (this.author.length < 2 || this.author.length > 32) {
+            throw new EvangelineValueError('author passed is not 2-32 characters long')
+        }
+
         this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL)
 
         this.ws.on('open', () => {
@@ -144,7 +150,7 @@ export class Bot extends EventEmitter {
      * })
      */
     async sendMessage(content: string): Promise<MessageResponse> {
-        return await this.createMessage(new Message(this.name, content))
+        return await this.createMessage(new Message(this.author, content))
     }
 
     /**
