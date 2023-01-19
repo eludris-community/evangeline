@@ -147,6 +147,9 @@ export class Bot extends EventEmitter {
      * })
      */
     async sendMessage(content: string): Promise<MessageResponse> {
+        if (content === '' || content === undefined || content === null) {
+            throw new EvangelineValueError('Message content cannot be empty')
+        }
         return await this.createMessage(new Message(this.author, content))
     }
 
