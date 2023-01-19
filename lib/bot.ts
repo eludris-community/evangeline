@@ -1,7 +1,7 @@
 import { RawData, WebSocket } from 'ws'
 import { EventEmitter } from 'events'
 import { Message, MessageResponse } from './types/message.js'
-import fetch from 'node-fetch'
+import axios from 'axios'
 import { EvangelineValueError } from './errors.js'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
@@ -127,14 +127,11 @@ export class Bot extends EventEmitter {
      * @private
      */
     private async createMessage(message: Message): Promise<MessageResponse> {
-        const response = await fetch(`${this.rest}/messages`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(message)
-        })
-        return response.json() as Promise<MessageResponse>
+        const response = axios.post(`${this.rest}/messages`, {
+            author: this.author,
+            content: message.content
+        }).then((v) => v.data)
+        return await response as MessageResponse
     }
 
     /**
