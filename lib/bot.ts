@@ -1,7 +1,7 @@
 import { RawData, WebSocket } from 'ws'
 import { EventEmitter } from 'events'
-import { Message, MessageResponse } from './types/message.js'
 import axios from 'axios'
+import { Message } from 'eludris-api-types/oprish'
 import { EvangelineValueError } from './errors.js'
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
@@ -122,19 +122,6 @@ export class Bot extends EventEmitter {
     }
 
     /**
-     * A private function to create messages.
-     * @param message The message to create
-     * @private
-     */
-    private async createMessage(message: Message): Promise<MessageResponse> {
-        const response = axios.post(`${this.rest}/messages`, {
-            author: this.author,
-            content: message.content
-        }).then((v) => v.data)
-        return await response as MessageResponse
-    }
-
-    /**
      * Send a message to Eludris.
      * @param content The content of the message.
      * @example
@@ -146,18 +133,22 @@ export class Bot extends EventEmitter {
      *     await bot.sendMessage('woah, I\'m alive!')
      * })
      */
-    async sendMessage(content: string): Promise<MessageResponse> {
+    async sendMessage(content: string): Promise<Message> {
         if (content === '' || content === undefined || content === null) {
             throw new EvangelineValueError('Message content cannot be empty')
         }
-        return await this.createMessage(new Message(this.author, content))
+
+        return await axios.post(`${this.rest}/messages`, {
+            author: this.author,
+            content: content
+        }).then((v) => v.data) as Promise<Message>
     }
 
     /**
      * Send a message to Eludris. (Alias for {@link sendMessage})
      * @param content The content of the message.
      */
-    async send(content: string): Promise<MessageResponse> {
+    async send(content: string): Promise<Message> {
         return await this.sendMessage(content)
     }
 
