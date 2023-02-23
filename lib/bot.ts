@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Message } from 'eludris-api-types/oprish';
 import { EvangelineValueError } from './errors.js';
 import uploadAttachment from './attachments/upload.js';
+import { FileData } from 'eludris-api-types/effis';
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/';
 const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/';
@@ -174,4 +175,25 @@ export class Bot extends EventEmitter {
         return await this.sendMessage(content, file);
     }
 
+    /**
+     * Fetches an attachment from the attachment bucket.
+     * @param id The ID of the attachment.
+     * @returns {Buffer} The attachment.
+     */
+    async fetchAttachment(id: string): Promise<Buffer> {
+        return (await axios.get(`${this.cdn}/attachments/${id}`, {
+            responseType: 'arraybuffer'
+        })).data as Buffer;
+    }
+
+    /**
+     * Fetches an attachment's data from the attachment bucket.
+     * @param id The ID of the attachment.
+     * @returns {FileData} The attachment's data.
+     */
+    async fetchAttachmentData(id: string): Promise<FileData> {
+        return (await axios.get(`${this.cdn}/attachments/${id}/data`, {
+            responseType: 'json'
+        })).data as FileData;
+    }
 }
