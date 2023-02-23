@@ -214,4 +214,31 @@ export class Bot extends EventEmitter {
             );
         });
     }
+
+    /**
+     * Fetch a static file with the given name. These are added only by the instance owner.
+     * @param name The name of the file.
+     * @returns {Buffer} The file.
+     */
+    async fetchStaticFile(name: string): Promise<Buffer> {
+        return (await axios.get(`${this.cdn}/static/${name}`, {
+            responseType: 'arraybuffer'
+        })).data as Buffer;
+    }
+
+    /**
+     * Download a static file with the given name. These are added only by the instance owner.
+     * @param name The name of the file.
+     * @returns {Promise<void>} A promise that resolves when the file is downloaded.
+     */
+    async downloadStaticFile(name: string): Promise<void> {
+        const response = (await axios.get(`${this.cdn}/static/${name}/download`, {
+            responseType: 'arraybuffer'
+        })).data as Buffer;
+
+        return fs.writeFileSync(
+            path.join(process.cwd(), name),
+            response
+        );
+    }
 }
