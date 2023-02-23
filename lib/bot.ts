@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { RawData, WebSocket } from 'ws';
 import { EventEmitter } from 'events';
 import axios from 'axios';
@@ -5,6 +6,7 @@ import { Message } from 'eludris-api-types/oprish';
 import { EvangelineValueError } from './errors.js';
 import uploadAttachment from './attachments/upload.js';
 import { FileData } from 'eludris-api-types/effis';
+import path from 'path';
 
 const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/';
 const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/';
@@ -195,5 +197,21 @@ export class Bot extends EventEmitter {
         return (await axios.get(`${this.cdn}/attachments/${id}/data`, {
             responseType: 'json'
         })).data as FileData;
+    }
+
+    /**
+     * Downloads an attachment from the attachment bucket.
+     * @param id The ID of the attachment.
+     * @param name The name of the attachment.
+     * @returns {Promise<void>} A promise that resolves when the attachment is downloaded.
+     */
+    async downloadAttachment(id: string, name: string): Promise<void> {
+        const data = this.fetchAttachment(id);
+        data.then((attachment) => {
+            return fs.writeFileSync(
+                path.join(process.cwd(), name),
+                attachment
+            )
+        })
     }
 }
