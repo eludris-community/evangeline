@@ -1,11 +1,13 @@
-import { RawData, WebSocket } from 'ws'
-import { EventEmitter } from 'events'
-import axios from 'axios'
-import { Message } from 'eludris-api-types/oprish'
-import { EvangelineValueError } from './errors.js'
+import { RawData, WebSocket } from 'ws';
+import { EventEmitter } from 'events';
+import axios from 'axios';
+import { Message } from 'eludris-api-types/oprish';
+import { EvangelineValueError } from './errors.js';
+import uploadAttachment from './attachments/upload.js';
 
-const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/'
-const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/'
+const DEFAULT_REST_URL = 'https://eludris.tooty.xyz/';
+const DEFAULT_WS_URL = 'wss://eludris.tooty.xyz/ws/';
+const DEFAULT_CDN_URL = 'https://effis.tooty.xyz/';
 
 /**
  * The options for the bot.
@@ -19,6 +21,10 @@ export interface BotOptions {
      * The REST URL to send requests to.
      */
     restURL?: string;
+    /**
+     * The CDN URL to send requests to.
+     */
+    cdnURL?: string;
 }
 
 export declare interface Bot {
@@ -26,7 +32,7 @@ export declare interface Bot {
      * A function to listen to certain events.
      * @param event The event to listen to.
      * @param listener The parameters (if needed) to be used in the event.
-	 * @returns {@link Bot}
+     * @returns {@link Bot}
      * @example
      * import { Bot } from 'evangeline';
      * 
@@ -47,6 +53,7 @@ export class Bot extends EventEmitter {
     public author: string
     private options?: BotOptions
     public ws: WebSocket | null = null
+    public cdn: string
     public rest: string
     private interval: NodeJS.Timer | null = null
 
@@ -68,8 +75,9 @@ export class Bot extends EventEmitter {
         this.author = author
         this.options = options
         this.rest = this.options?.restURL || DEFAULT_REST_URL
+        this.cdn = this.options?.cdnURL || DEFAULT_CDN_URL;
     }
-    
+
     /**
      * Connects to the Eludris gateway.
      * @throws {EvangelineValueError} If `author` is not 2-32 characters long.
@@ -133,23 +141,37 @@ export class Bot extends EventEmitter {
      *     await bot.sendMessage('woah, I\'m alive!')
      * })
      */
-    async sendMessage(content: string): Promise<Message> {
-        if (content === '' || content === undefined || content === null) {
-            throw new EvangelineValueError('Message content cannot be empty')
+    // make use of Buffer.from() to send files
+    async sendMessage(content?: string, file?: {
+        name: string,
+        file: Buffer,
+        spoiler?: boolean;
+    }): Promise<Message> {
+        let fullMessage: string;
+        if (file) {
+            const attachment = await uploadAttachment(this, file);
+            const fixedURL = `${this.cdn}${attachment.id}`;
+            fullMessage = `${content || ''} ${fixedURL}`;
+        } else {
+            fullMessage = content || '';
         }
 
-        return await axios.post(`${this.rest}/messages`, {
+        return (await axios.post(`${this.rest}/messages`, {
             author: this.author,
-            content: content
-        }).then((v) => v.data) as Promise<Message>
+            content: fullMessage,
+        })).data as Message;
     }
 
     /**
      * Send a message to Eludris. (Alias for {@link sendMessage})
      * @param content The content of the message.
      */
-    async send(content: string): Promise<Message> {
-        return await this.sendMessage(content)
+    async send(content?: string, file?: {
+        name: string,
+        file: Buffer,
+        spoiler?: boolean;
+    }): Promise<Message> {
+        return await this.sendMessage(content, file);
     }
 
 }
