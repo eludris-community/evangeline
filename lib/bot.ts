@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs';
 import { RawData, WebSocket } from 'ws';
 import { EventEmitter } from 'events';
 import axios from 'axios';
@@ -53,12 +53,12 @@ export declare interface Bot {
 }
 
 export class Bot extends EventEmitter {
-    public author: string
-    private options?: BotOptions
-    public ws: WebSocket | null = null
-    public cdn: string
-    public rest: string
-    private interval: NodeJS.Timer | null = null
+    public author: string;
+    private options?: BotOptions;
+    public ws: WebSocket | null = null;
+    public cdn: string;
+    public rest: string;
+    private interval: NodeJS.Timer | null = null;
 
     /**
      * The main bot class.
@@ -74,10 +74,10 @@ export class Bot extends EventEmitter {
      * })
      */
     constructor(author: string, options?: BotOptions) {
-        super()
-        this.author = author
-        this.options = options
-        this.rest = this.options?.restURL || DEFAULT_REST_URL
+        super();
+        this.author = author;
+        this.options = options;
+        this.rest = this.options?.restURL || DEFAULT_REST_URL;
         this.cdn = this.options?.cdnURL || DEFAULT_CDN_URL;
     }
 
@@ -93,33 +93,33 @@ export class Bot extends EventEmitter {
      */
     connect() {
         if (this.author.length < 2 || this.author.length > 32) {
-            throw new EvangelineValueError('author passed is not 2-32 characters long')
+            throw new EvangelineValueError('author passed is not 2-32 characters long');
         }
 
-        this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL)
+        this.ws = new WebSocket(this.options?.gatewayURL || DEFAULT_WS_URL);
 
         this.ws.on('open', () => {
-            this.emit('ready')
-        })
+            this.emit('ready');
+        });
 
         this.ws.on('message', (data: RawData) => {
-            const event = JSON.parse(data.toString())
+            const event = JSON.parse(data.toString());
             if (event.op == "MESSAGE_CREATE") {
-              this.emit('messageCreate', event.d as Message)
+                this.emit('messageCreate', event.d as Message);
             }
-        })
+        });
 
         this.ws.on('close', (code: number, reason: Buffer) => {
-            this.emit('close', code, reason)
-        })
+            this.emit('close', code, reason);
+        });
 
         this.ws.on('error', (error: Error) => {
-            this.emit('error', error)
-        })
+            this.emit('error', error);
+        });
 
         this.interval = setInterval(() => {
-            this.ws?.send(JSON.stringify({op: "PING"}))
-        }, 45 * 1000)
+            this.ws?.send(JSON.stringify({ op: "PING" }));
+        }, 45 * 1000);
     }
 
     /**
@@ -127,8 +127,8 @@ export class Bot extends EventEmitter {
      */
     close() {
         if (this.ws?.readyState === WebSocket.OPEN) {
-            this.ws.close()
-            clearInterval(this.interval!)
+            this.ws.close();
+            clearInterval(this.interval!);
         }
     }
 
@@ -211,7 +211,7 @@ export class Bot extends EventEmitter {
             return fs.writeFileSync(
                 path.join(process.cwd(), name),
                 attachment
-            )
-        })
+            );
+        });
     }
 }
