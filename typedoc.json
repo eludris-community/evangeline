@@ -1,0 +1,5 @@
+{
+  "theme": "default",
+  "entryPoints": ["src/index.ts"],
+  "excludeExternals": false
+}
