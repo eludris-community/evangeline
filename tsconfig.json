@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "DOM",
+      "ESNext",
+    ],
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "newLine": "lf",
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "tsup.config.ts"
+  ]
+}
